@@ -14,14 +14,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 use App\Http\Controllers\UserController;
- 
-Route::get('/user', [UserController::class, 'index']);
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LoginController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::redirect('/', '/user');
 
+Route::get('login', [LoginController::class, 'welcome']);
+Route::post('login', [ 'as' => 'login', 'uses' => 'LoginController@do']);
+Route::get('user', [UserController::class, 'home'])->middleware('auth');
+Route::get('user/test', [UserController::class, 'welcome'])->middleware('auth');
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
+});
+
+Route::get('pages', function(){
+    return view('pages');
 });
