@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\UserController;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of b077873 (authentication first commit)
  
 Route::get('/user', [UserController::class, 'index']);
 
@@ -37,7 +40,10 @@ Route::get('user/test', [UserController::class, 'welcome'])->middleware('auth');
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
+<<<<<<< HEAD
 
 Route::get('pages', function(){
     return view('pages');
 });
+=======
+>>>>>>> parent of b077873 (authentication first commit)
