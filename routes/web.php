@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,37 +15,44 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-use App\Http\Controllers\UserController;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> parent of b077873 (authentication first commit)
- 
+
 Route::get('/user', [UserController::class, 'index']);
 
 Route::get('/', function () {
     return view('welcome');
 });
-=======
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\LoginController;
-
-Route::redirect('/', '/user');
-
-Route::get('login', [LoginController::class, 'welcome']);
-Route::post('login', [ 'as' => 'login', 'uses' => 'LoginController@do']);
-Route::get('user', [UserController::class, 'home'])->middleware('auth');
-Route::get('user/test', [UserController::class, 'welcome'])->middleware('auth');
->>>>>>> parent of 643b77d (login develop)
 
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
-<<<<<<< HEAD
 
-Route::get('pages', function(){
-    return view('pages');
+Route::group(['namespace' => 'App\Http\Controllers'], function()
+{
+    /**
+     * Home Routes
+     */
+    Route::get('/home', 'HomeController@index')->name('home.index');
+
+    Route::group(['middleware' => ['guest']], function() {
+        /**
+         * Register Routes
+         */
+        Route::get('/register', 'RegisterController@show')->name('register.show');
+        Route::post('/register', 'RegisterController@register')->name('register.perform');
+
+        /**
+         * Login Routes
+         */
+        Route::get('/login', 'LoginController@show')->name('login.show');
+        Route::post('/login', 'LoginController@login')->name('login.perform');
+
+    });
+
+    Route::group(['middleware' => ['auth']], function() {
+        /**
+         * Logout Routes
+         */
+        Route::get('/logout', 'LogoutController@perform')->name('logout.perform');
+    });
 });
-=======
->>>>>>> parent of b077873 (authentication first commit)
