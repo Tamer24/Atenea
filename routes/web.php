@@ -15,8 +15,7 @@ use App\Http\Controllers\RegisterController;
 |
 */
 
-
-Route::get('/user', [UserController::class, 'index']);
+Route::get('/index', [UserController::class, 'index']);
 
 Route::get('/', function () {
     return view('welcome');
